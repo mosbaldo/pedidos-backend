@@ -190,6 +190,7 @@
 							<apiPackage>${project.groupId}.web.api</apiPackage>
 							<modelPackage>${project.groupId}.web.api.model</modelPackage>
 							<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+							<modelNameSuffix>Dto</modelNameSuffix>
 							<skipValidateSpec>false</skipValidateSpec>
 							<configOptions>
 								<title>pedidos-api</title>

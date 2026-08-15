@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: pedidos-api
   description: API para la gestión de clientes, entregas, pedidos y búsqueda predictiva (type-ahead) del Puerto de Liverpool.
-  version: 0.0.1-SNAPSHOT
+  version: 1.0.0
 servers:
   - url: http://localhost:8080/api/v1
     description: Servidor local de desarrollo
@@ -18,14 +18,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CustomerRequestDto"
+              $ref: "#/components/schemas/CustomerRequest"
       responses:
         "201":
           description: Cliente creado exitosamente
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CustomerResponseDto"
+                $ref: "#/components/schemas/CustomerResponse"
         "400":
           description: Petición inválida o datos de entrada incorrectos
 
@@ -47,7 +47,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CustomerResponseDto"
+                $ref: "#/components/schemas/CustomerResponse"
         "404":
           description: Cliente no encontrado
     put:
@@ -66,14 +66,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CustomerRequestDto"
+              $ref: "#/components/schemas/CustomerRequest"
       responses:
         "200":
           description: Cliente actualizado exitosamente
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CustomerResponseDto"
+                $ref: "#/components/schemas/CustomerResponse"
         "404":
           description: Cliente no encontrado
         "400":
@@ -106,14 +106,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeliveryRequestDto"
+              $ref: "#/components/schemas/DeliveryRequest"
       responses:
         "201":
           description: Datos de entrega creados exitosamente
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeliveryResponseDto"
+                $ref: "#/components/schemas/DeliveryResponse"
         "400":
           description: Datos de entrada inválidos
 
@@ -135,7 +135,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeliveryResponseDto"
+                $ref: "#/components/schemas/DeliveryResponse"
         "404":
           description: Entrega no encontrada
     put:
@@ -154,14 +154,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeliveryRequestDto"
+              $ref: "#/components/schemas/DeliveryRequest"
       responses:
         "200":
           description: Entrega actualizada exitosamente
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeliveryResponseDto"
+                $ref: "#/components/schemas/DeliveryResponse"
         "404":
           description: Entrega no encontrada
     delete:
@@ -192,14 +192,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OrderRequestDto"
+              $ref: "#/components/schemas/OrderRequest"
       responses:
         "201":
           description: Pedido registrado exitosamente
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrderResponseDto"
+                $ref: "#/components/schemas/OrderResponse"
         "400":
           description: Datos de entrada inválidos
 
@@ -221,7 +221,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrderResponseDto"
+                $ref: "#/components/schemas/OrderResponse"
         "404":
           description: Pedido no encontrado
     put:
@@ -240,14 +240,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OrderRequestDto"
+              $ref: "#/components/schemas/OrderRequest"
       responses:
         "200":
           description: Pedido actualizado exitosamente
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrderResponseDto"
+                $ref: "#/components/schemas/OrderResponse"
         "404":
           description: Pedido no encontrado
     delete:
@@ -301,16 +301,16 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SearchOrderResultDto"
+                  $ref: "#/components/schemas/SearchOrderResult"
 
 components:
   schemas:
-    CustomerRequestDto:
+    CustomerRequest:
       type: object
       required:
         - userId
         - firstName
-        - lastName
+        - lastNamegit
         - email
       properties:
         userId:
@@ -335,7 +335,7 @@ components:
           example: "osbald91@gmail.com"
           description: Correo electrónico del cliente
 
-    CustomerResponseDto:
+    CustomerResponse:
       type: object
       properties:
         userId:
@@ -361,7 +361,7 @@ components:
             type: string
           example: ["ord_9901", "ord_9902"]
 
-    DeliveryRequestDto:
+    DeliveryRequest:
       type: object
       required:
         - shippingAddress
@@ -371,7 +371,7 @@ components:
           example: "Av. Paseo de la Reforma 315, Cuauhtémoc, CDMX, 06500"
           description: Dirección completa de envío
 
-    DeliveryResponseDto:
+    DeliveryResponse:
       type: object
       properties:
         deliveryId:
@@ -381,7 +381,7 @@ components:
           type: string
           example: "Av. Paseo de la Reforma 315, Cuauhtémoc, CDMX, 06500"
 
-    OrderRequestDto:
+    OrderRequest:
       type: object
       required:
         - itemId
@@ -406,7 +406,7 @@ components:
           example: "Entregado"
           description: Estatus del pedido o fecha estimada de entrega
 
-    OrderResponseDto:
+    OrderResponse:
       type: object
       properties:
         orderRef:
@@ -430,7 +430,7 @@ components:
           example: "2026-08-15"
           description: Fecha estimada de entrega calculada u obtenida
 
-    SearchOrderResultDto:
+    SearchOrderResult:
       type: object
       properties:
         orderRef:
