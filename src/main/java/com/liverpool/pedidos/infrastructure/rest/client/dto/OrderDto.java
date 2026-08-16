@@ -1,5 +1,7 @@
 package com.liverpool.pedidos.infrastructure.rest.client.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -52,21 +54,27 @@ public class OrderDto {
     private String storeName;
 
     /**
-     * Código de identificación del producto asociado al pedido.
+     * Lista de identificadores de los productos asociados al pedido.
      */
     @JsonProperty("itemId")
-    private String itemId;
-
-    /**
-     * Cantidad de productos en el pedido.
-     */
-    @JsonProperty("quantity")
-    private int quantity;
+    private List<String> itemId;
 
     /**
      * Canal de venta del pedido (p.e. online, physical).
      */
-    @JsonProperty("salesChannel")
-    private String salesChannel;
+    @JsonProperty("canal")
+    private String canal;
+
+    /**
+     * Bandera de marketPlace.
+     */
+    @JsonProperty("marketPlace")
+    private boolean marketPlace;
+
+    /**
+     * Bandera de giftRegistry.
+     */
+    @JsonProperty("giftRegistry")
+    private boolean giftRegistry;
 
 }
