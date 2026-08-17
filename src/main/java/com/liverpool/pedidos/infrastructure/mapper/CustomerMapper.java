@@ -4,9 +4,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import com.liverpool.infrastructure.rest.dto.CustomerOrderDto;
 import com.liverpool.infrastructure.rest.dto.CustomerRequestDto;
 import com.liverpool.infrastructure.rest.dto.CustomerResponseDto;
 import com.liverpool.pedidos.domain.model.Customer;
+import com.liverpool.pedidos.domain.model.Order;
 import com.liverpool.pedidos.infrastructure.persistence.document.CustomerDocument;
 
 /**
@@ -22,6 +24,7 @@ public interface CustomerMapper {
      * @param customerRequestDto DTO de la capa de API.
      * @return Modelo de dominio correspondiente.
      */
+    @Mapping(target = "orders", ignore = true)
     Customer toDomain(CustomerRequestDto customerRequestDto);
 
     /**
@@ -46,6 +49,7 @@ public interface CustomerMapper {
      * @param customerDocument Documento de persistencia.
      * @return Modelo de dominio correspondiente.
      */
+    @Mapping(target = "orders", ignore = true)
     Customer toDomain(CustomerDocument customerDocument);
 
     /**
