@@ -57,7 +57,7 @@ public class OrderDto {
      * Lista de identificadores de los productos asociados al pedido.
      */
     @JsonProperty("itemId")
-    private List<String> itemId;
+    private List<String> items;
 
     /**
      * Canal de venta del pedido (p.e. online, physical).

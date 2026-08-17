@@ -2,6 +2,8 @@ package com.liverpool.pedidos.domain.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -42,12 +44,17 @@ public class Order {
     private List<Item> items;
 
     /**
-     * Cantidad de productos en el pedido.
-     */
-    private int quantity;
-
-    /**
      * Canal de venta del pedido (p.e. online, physical).
      */
-    private String salesChannel;
+    private String canal;
+
+    /**
+     * Bandera de marketPlace.
+     */
+    private boolean marketPlace;
+
+    /**
+     * Bandera de giftRegistry.
+     */
+    private boolean giftRegistry;
 }

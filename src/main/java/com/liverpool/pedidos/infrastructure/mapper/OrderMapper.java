@@ -1,6 +1,7 @@
 package com.liverpool.pedidos.infrastructure.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.liverpool.pedidos.domain.model.Order;
 import com.liverpool.pedidos.infrastructure.rest.client.dto.OrderDto;
@@ -18,5 +19,6 @@ public interface OrderMapper {
      * @param orderDto DTO de la capa de API.
      * @return Modelo de dominio correspondiente.
      */
+    @Mapping(target = "items", ignore = true)
     Order toDomain(OrderDto orderDto);
 }

@@ -48,6 +48,11 @@ public class Customer {
     private String email;
 
     /**
+     * Dirección de envío.
+     */
+    private String shippingAddress;
+
+    /**
      * Listado de pedidos asociados al cliente.
      */
     @Builder.Default

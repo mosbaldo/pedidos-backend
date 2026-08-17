@@ -32,4 +32,5 @@ public class CustomerDocument {
     private String lastName;
     private String secondLastName;
     private String email;
+    private String shippingAddress;
 }
