@@ -4,11 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.liverpool.infrastructure.rest.dto.CustomerOrderDto;
 import com.liverpool.infrastructure.rest.dto.CustomerRequestDto;
 import com.liverpool.infrastructure.rest.dto.CustomerResponseDto;
 import com.liverpool.pedidos.domain.model.Customer;
-import com.liverpool.pedidos.domain.model.Order;
 import com.liverpool.pedidos.infrastructure.persistence.document.CustomerDocument;
 
 /**

@@ -7,7 +7,6 @@ import com.liverpool.pedidos.application.service.CustomerService;
 import com.liverpool.pedidos.domain.exception.CustomerNotFoundException;
 import com.liverpool.pedidos.domain.model.Customer;
 import com.liverpool.pedidos.infrastructure.rest.advice.GlobalExceptionHandler;
-import com.liverpool.pedidos.infrastructure.rest.client.dto.OrderDto;
 import com.liverpool.pedidos.infrastructure.mapper.CustomerMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
