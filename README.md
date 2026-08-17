@@ -10,7 +10,7 @@ Para cumplir estrictamente con los lineamientos del examen de **no admitir el pa
 
 A continuación se presenta el diagrama de arquitectura actualizado que representa el flujo y desacoplamiento de dependencias del sistema:
 
-![Arquitectura Hexagonal](diagrama-arquitectura-v2.png)
+<img width="2048" height="1459" alt="diagrama-arquitectura" src="https://github.com/user-attachments/assets/69349474-e4c3-43fa-b2ca-b2bc0d5053df" />
 
 La aplicación se encuentra desacoplada en tres capas principales que garantizan la separación de responsabilidades y la inversión de dependencias:
 
