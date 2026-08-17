@@ -1,18 +1,19 @@
 openapi: 3.0.3
 info:
-  title: pedidos-api
-  description: API para la gestión de clientes, entregas, pedidos y búsqueda predictiva (type-ahead) del Puerto de Liverpool.
+  title: pedidos-backend
+  description: API de gestión de clientes y búsqueda de pedidos para la prueba técnica de El Puerto de Liverpool.
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/api/v1
-    description: Servidor local de desarrollo
+  - url: /api/v1
+
 paths:
   /customers:
     post:
+      summary: Crea un nuevo cliente
+      description: Guarda un cliente en la base de datos.
+      operationId: createCustomer
       tags:
         - Customers
-      summary: Crear un nuevo cliente
-      operationId: createCustomer
       requestBody:
         required: true
         content:
@@ -21,44 +22,49 @@ paths:
               $ref: "#/components/schemas/CustomerRequest"
       responses:
         "201":
-          description: Cliente creado exitosamente
+          description: Cliente creado exitosamente.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerResponse"
         "400":
-          description: Petición inválida o datos de entrada incorrectos
+          description: Solicitud incorrecta (datos inválidos).
 
   /customers/{userId}:
     get:
+      summary: Obtiene un cliente por su ID
+      description: Recupera la información del cliente y recupera su lista de pedidos actualizada.
+      operationId: getCustomerById
       tags:
         - Customers
-      summary: Obtener los detalles de un cliente por su userId
-      operationId: getCustomerById
       parameters:
         - name: userId
           in: path
           required: true
+          description: ID del usuario / cliente.
           schema:
             type: string
       responses:
         "200":
-          description: Cliente recuperado exitosamente
+          description: Cliente recuperado exitosamente.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerResponse"
         "404":
-          description: Cliente no encontrado
+          description: Cliente no encontrado.
+
     put:
+      summary: Actualiza un cliente existente
+      description: Modifica los datos personales de un cliente en la base de datos.
+      operationId: updateCustomer
       tags:
         - Customers
-      summary: Actualizar la información de un cliente existente
-      operationId: updateCustomer
       parameters:
         - name: userId
           in: path
           required: true
+          description: ID del usuario a actualizar.
           schema:
             type: string
       requestBody:
@@ -69,233 +75,62 @@ paths:
               $ref: "#/components/schemas/CustomerRequest"
       responses:
         "200":
-          description: Cliente actualizado exitosamente
+          description: Cliente actualizado exitosamente.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerResponse"
         "404":
-          description: Cliente no encontrado
-        "400":
-          description: Petición inválida
+          description: Cliente no encontrado.
+
     delete:
+      summary: Elimina un cliente por su ID
+      description: Remueve el cliente de la base de datos.
+      operationId: deleteCustomer
       tags:
         - Customers
-      summary: Eliminar un cliente por su userId
-      operationId: deleteCustomer
       parameters:
         - name: userId
           in: path
           required: true
+          description: ID del usuario a eliminar.
           schema:
             type: string
       responses:
         "204":
-          description: Cliente eliminado exitosamente
+          description: Cliente eliminado exitosamente (sin contenido).
         "404":
-          description: Cliente no encontrado
-
-  /deliveries:
-    post:
-      tags:
-        - Deliveries
-      summary: Registrar datos de entrega
-      operationId: createDelivery
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/DeliveryRequest"
-      responses:
-        "201":
-          description: Datos de entrega creados exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DeliveryResponse"
-        "400":
-          description: Datos de entrada inválidos
-
-  /deliveries/{deliveryId}:
-    get:
-      tags:
-        - Deliveries
-      summary: Obtener datos de entrega por ID
-      operationId: getDeliveryById
-      parameters:
-        - name: deliveryId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Entrega recuperada exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DeliveryResponse"
-        "404":
-          description: Entrega no encontrada
-    put:
-      tags:
-        - Deliveries
-      summary: Actualizar datos de entrega
-      operationId: updateDelivery
-      parameters:
-        - name: deliveryId
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/DeliveryRequest"
-      responses:
-        "200":
-          description: Entrega actualizada exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DeliveryResponse"
-        "404":
-          description: Entrega no encontrada
-    delete:
-      tags:
-        - Deliveries
-      summary: Eliminar datos de entrega por ID
-      operationId: deleteDelivery
-      parameters:
-        - name: deliveryId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "204":
-          description: Entrega eliminada exitosamente
-        "404":
-          description: Entrega no encontrada
-
-  /orders:
-    post:
-      tags:
-        - Orders
-      summary: Registrar un nuevo pedido
-      operationId: createOrder
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrderRequest"
-      responses:
-        "201":
-          description: Pedido registrado exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrderResponse"
-        "400":
-          description: Datos de entrada inválidos
-
-  /orders/{orderRef}:
-    get:
-      tags:
-        - Orders
-      summary: Obtener detalles de un pedido por su referencia
-      operationId: getOrderByRef
-      parameters:
-        - name: orderRef
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Pedido recuperado exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrderResponse"
-        "404":
-          description: Pedido no encontrado
-    put:
-      tags:
-        - Orders
-      summary: Actualizar un pedido existente
-      operationId: updateOrder
-      parameters:
-        - name: orderRef
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrderRequest"
-      responses:
-        "200":
-          description: Pedido actualizado exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrderResponse"
-        "404":
-          description: Pedido no encontrado
-    delete:
-      tags:
-        - Orders
-      summary: Eliminar un pedido por su referencia
-      operationId: deleteOrder
-      parameters:
-        - name: orderRef
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "204":
-          description: Pedido eliminado exitosamente
-        "404":
-          description: Pedido no encontrado
+          description: Cliente no encontrado.
 
   /orders/search:
     get:
-      tags:
-        - Search
-      summary: Búsqueda predictiva y flexible (type ahead) de pedidos
-      description: Filtra los pedidos por referencia, estatus y tienda, aplicando coincidencia aproximada, sin considerar acentos, comas, mayúsculas o errores menores de ortografía. Recupera el nombre de los productos del endpoint /items.
+      summary: Búsqueda predictiva y flexible de pedidos
+      description: Realiza una búsqueda type-ahead flexible sobre pedidos filtrando por referencia, estatus o nombre de tienda. Recupera los productos resolviendo sus nombres amigables.
       operationId: searchOrders
+      tags:
+        - Orders
       parameters:
         - name: orderRef
           in: query
           required: false
-          description: Referencia del pedido
+          description: Referencia del pedido para búsqueda flexible.
           schema:
             type: string
         - name: orderStatus
           in: query
           required: false
-          description: Estatus del pedido
+          description: Estatus del pedido para búsqueda flexible.
           schema:
             type: string
         - name: storeName
           in: query
           required: false
-          description: Nombre de la tienda
+          description: Nombre de la tienda para búsqueda flexible.
           schema:
             type: string
       responses:
         "200":
-          description: Búsqueda realizada con éxito
+          description: Búsqueda ejecutada de forma exitosa.
           content:
             application/json:
               schema:
@@ -310,152 +145,119 @@ components:
       required:
         - userId
         - firstName
-        - lastNamegit
+        - lastName
         - email
       properties:
         userId:
           type: string
-          example: "usr_1001"
-          description: Identificador único vinculado con el userId del servicio /pedidos
+          description: Identificador único del cliente.
         firstName:
           type: string
-          example: "Miguel Osbaldo"
-          description: Nombre del cliente
+          description: Nombre del cliente.
         lastName:
           type: string
-          example: "Gallardo"
-          description: Apellido paterno
+          description: Apellido paterno del cliente.
         secondLastName:
           type: string
-          example: "Toledo"
-          description: Apellido materno
+          description: Apellido materno del cliente.
         email:
           type: string
           format: email
-          example: "osbald91@gmail.com"
-          description: Correo electrónico del cliente
+          description: Correo electrónico de contacto.
+        shippingAddress:
+          type: string
+          description: Dirección física para envíos de mercancía.
 
     CustomerResponse:
       type: object
+      required:
+        - userId
+        - firstName
+        - lastName
+        - email
       properties:
         userId:
           type: string
-          example: "usr_1001"
+          description: Identificador único del cliente.
         firstName:
           type: string
-          example: "Miguel Osbaldo"
+          description: Nombre del cliente.
         lastName:
           type: string
-          example: "Gallardo"
+          description: Apellido paterno.
         secondLastName:
           type: string
-          example: "Toledo"
+          description: Apellido materno.
         email:
           type: string
           format: email
-          example: "osbald91@gmail.com"
+          description: Correo electrónico de contacto.
+        shippingAddress:
+          type: string
+          description: Dirección física para envíos de mercancía.
         orders:
           type: array
-          description: Lista de referencias de pedidos asociados (orderRef) recuperados de /pedidos
           items:
-            type: string
-          example: ["ord_9901", "ord_9902"]
+            $ref: "#/components/schemas/CustomerOrder"
+          description: Lista de pedidos asociados al usuario de forma simplificada sin detalle de productos.
 
-    DeliveryRequest:
+    CustomerOrder:
       type: object
       required:
-        - shippingAddress
+        - orderRef
       properties:
-        shippingAddress:
+        orderRef:
           type: string
-          example: "Av. Paseo de la Reforma 315, Cuauhtémoc, CDMX, 06500"
-          description: Dirección completa de envío
+          description: Referencia única de la orden de pedido.
+        orderStatus:
+          type: string
+          description: Fecha estimada de entrega.
+        storeName:
+          type: string
+          description: Nombre de la tienda asociada.
+        canal:
+          type: string
+          description: Canal de venta (ej. physical, online).
 
-    DeliveryResponse:
+    SearchOrderResult:
       type: object
+      required:
+        - orderRef
       properties:
-        deliveryId:
+        orderRef:
           type: string
-          example: "del_2001"
-        shippingAddress:
+          description: Referencia única de la orden de pedido.
+        orderStatus:
           type: string
-          example: "Av. Paseo de la Reforma 315, Cuauhtémoc, CDMX, 06500"
+          description: Estatus de entrega o procesamiento de la orden.
+        storeName:
+          type: string
+          description: Nombre de la tienda de origen.
+        channel:
+          type: string
+          description: Canal de venta utilizado.
+        deliveryDate:
+          type: string
+          description: Fecha estimada de entrega de la orden.
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ItemResponse"
+          description: Lista de productos asociados a la orden con sus nombres amigables resueltos.
 
-    OrderRequest:
+    ItemResponse:
       type: object
       required:
         - itemId
         - quantity
-        - salesChannel
-        - orderStatus
+        - displayName
       properties:
         itemId:
           type: string
-          example: "item_554"
-          description: Código del producto
+          description: Identificador único del producto o artículo.
         quantity:
           type: integer
-          example: 2
-          description: Cantidad de artículos solicitados
-        salesChannel:
-          type: string
-          example: "Sitio Web"
-          description: Canal de venta (ej. Aplicación, Sitio Web, Tienda)
-        orderStatus:
-          type: string
-          example: "Entregado"
-          description: Estatus del pedido o fecha estimada de entrega
-
-    OrderResponse:
-      type: object
-      properties:
-        orderRef:
-          type: string
-          example: "ord_9901"
-        itemId:
-          type: string
-          example: "item_554"
-        quantity:
-          type: integer
-          example: 2
-        salesChannel:
-          type: string
-          example: "Sitio Web"
-        orderStatus:
-          type: string
-          example: "Entregado"
-        estimatedDeliveryDate:
-          type: string
-          format: date
-          example: "2026-08-15"
-          description: Fecha estimada de entrega calculada u obtenida
-
-    SearchOrderResult:
-      type: object
-      properties:
-        orderRef:
-          type: string
-          example: "ord_9901"
-        orderStatus:
-          type: string
-          example: "Entregado"
-        storeName:
-          type: string
-          example: "Liverpool Centro"
-        itemId:
-          type: string
-          example: "item_554"
+          description: Cantidad de piezas solicitadas de este artículo.
         displayName:
           type: string
-          example: "Smart TV LG 55 Pulgadas 4K"
-          description: Nombre del producto obtenido de /items mediante coincidencia de itemId
-        quantity:
-          type: integer
-          example: 2
-        salesChannel:
-          type: string
-          example: "Sitio Web"
-        estimatedDeliveryDate:
-          type: string
-          format: date
-          example: "2026-08-15"
+          description: Nombre amigable y comercial del producto recuperado del catálogo.

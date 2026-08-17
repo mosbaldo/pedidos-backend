@@ -1,8 +1,6 @@
-package com.liverpool.pedidos.infrastructure.rest.client.dto;
+package com.liverpool.pedidos.domain.model;
 
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO para la respuesta del endpoint externo de órdenes.
+ * Modelo de dominio puro para representar un Pedido.
  */
 @Getter
 @Setter
@@ -20,61 +18,41 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class OrderDto {
-
-    /**
-     * Identificador único del pedido.
-     */
-    @EqualsAndHashCode.Include
-    @JsonProperty("id")
-    private long id;
-
-    /**
-     * Identificador del cliente asociado al pedido.
-     */
-    @JsonProperty("userId")
-    private String userId;
+public class Order {
 
     /**
      * Número del pedido.
      */
-    @JsonProperty("orderRef")
+    @EqualsAndHashCode.Include
     private String orderRef;
 
     /**
      * Fecha de entrega estimada del pedido.
      */
-    @JsonProperty("orderStatus")
     private String orderStatus;
 
     /**
      * Nombre de la tienda.
      */
-    @JsonProperty("storeName")
     private String storeName;
 
     /**
-     * Lista de identificadores de los productos asociados al pedido.
+     * Lista de productos asociados al pedido.
      */
-    @JsonProperty("itemId")
-    private List<String> items;
+    private List<Item> items;
 
     /**
      * Canal de venta del pedido (p.e. online, physical).
      */
-    @JsonProperty("canal")
     private String canal;
 
     /**
      * Bandera de marketPlace.
      */
-    @JsonProperty("marketPlace")
     private boolean marketPlace;
 
     /**
      * Bandera de giftRegistry.
      */
-    @JsonProperty("giftRegistry")
     private boolean giftRegistry;
-
 }
