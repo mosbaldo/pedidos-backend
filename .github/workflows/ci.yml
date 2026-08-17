@@ -9,7 +9,7 @@ jobs:
   # ----------------------------------------------------
   # ETAPA 1: Compilación y Pruebas Unitarias (CI)
   # ----------------------------------------------------
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,8 +28,8 @@ jobs:
   # ----------------------------------------------------
   # ETAPA 2: Construcción, Publicación y Despliegue (CD)
   # ----------------------------------------------------
-  publish-and-deploy:
-    needs: test
+  publish:
+    needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
