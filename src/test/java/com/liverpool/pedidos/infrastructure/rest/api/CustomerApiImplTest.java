@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -80,7 +79,7 @@ class CustomerApiImplTest {
     }
 
     @Test
-    @DisplayName("POST /customers - Debería retornar 201 Created y el JSON del cliente persistido")
+    @DisplayName("POST /api/v1/customers - Debería retornar 201 Created y el JSON del cliente persistido")
     void createCustomer_Success() throws Exception {
         // --- ARRANGE ---
         when(customerMapper.toDomain(any(CustomerRequestDto.class))).thenReturn(customerDomain);
@@ -100,7 +99,7 @@ class CustomerApiImplTest {
     }
 
     @Test
-    @DisplayName("GET /customers/{userId} - Debería retornar 200 OK cuando el cliente existe")
+    @DisplayName("GET /api/v1/customers/{userId} - Debería retornar 200 OK cuando el cliente existe")
     void getCustomerById_Success() throws Exception {
         when(customerService.getCustomerById(mockUserId)).thenReturn(customerDomain);
         when(customerMapper.toApiDto(customerDomain)).thenReturn(customerResponseDto);
@@ -116,7 +115,7 @@ class CustomerApiImplTest {
     }
 
     @Test
-    @DisplayName("GET /customers/{userId} - Debería retornar 404 Not Found a través del GlobalExceptionHandler")
+    @DisplayName("GET /api/v1/customers/{userId} - Debería retornar 404 Not Found a través del GlobalExceptionHandler")
     void getCustomerById_NotFound() throws Exception {
         // --- ARRANGE ---
         when(customerService.getCustomerById(mockUserId)).thenThrow(new CustomerNotFoundException(mockUserId));
@@ -128,7 +127,7 @@ class CustomerApiImplTest {
     }
 
     @Test
-    @DisplayName("PUT /customers/{id} - Debería actualizar un cliente y retornar 200 OK")
+    @DisplayName("PUT /api/v1/customers/{id} - Debería actualizar un cliente y retornar 200 OK")
     void updateCustomer_Success() throws Exception {
         // --- ARRANGE ---
         when(customerMapper.toDomain(any(CustomerRequestDto.class))).thenReturn(customerDomain);
@@ -148,7 +147,7 @@ class CustomerApiImplTest {
     }
 
     @Test
-    @DisplayName("PUT /customers/{id} - Debería retornar 404 si el cliente no existe")
+    @DisplayName("PUT /api/v1/customers/{id} - Debería retornar 404 si el cliente no existe")
     void updateCustomer_NotFound() throws Exception {
         // --- ARRANGE ---
         when(customerMapper.toDomain(any(CustomerRequestDto.class))).thenReturn(customerDomain);
@@ -167,7 +166,7 @@ class CustomerApiImplTest {
     }
 
     @Test
-    @DisplayName("DELETE /customers/{id} - Debería retornar 204 No Content")
+    @DisplayName("DELETE /api/v1/customers/{id} - Debería retornar 204 No Content")
     void deleteCustomer_Success() throws Exception {
         // --- ARRANGE ---
         doNothing().when(customerService).deleteCustomer(mockUserId);
@@ -180,7 +179,7 @@ class CustomerApiImplTest {
     }
 
     @Test
-    @DisplayName("DELETE /customers/{id} - Debería retornar 404 si el cliente no existe")
+    @DisplayName("DELETE /api/v1/customers/{id} - Debería retornar 404 si el cliente no existe")
     void deleteCustomer_NotFound() throws Exception {
         // --- ARRANGE ---
         // Forzamos al método void a lanzar la excepción de negocio al ser invocado
