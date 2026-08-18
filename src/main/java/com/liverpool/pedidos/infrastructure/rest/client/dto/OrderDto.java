@@ -56,7 +56,7 @@ public class OrderDto {
     /**
      * Lista de identificadores de los productos asociados al pedido.
      */
-    @JsonProperty("itemId")
+    @JsonProperty("items")
     private List<String> items;
 
     /**

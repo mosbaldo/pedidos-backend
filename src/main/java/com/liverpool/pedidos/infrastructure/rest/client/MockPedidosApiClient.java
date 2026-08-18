@@ -16,7 +16,7 @@ import reactor.netty.http.client.HttpClient;
 import java.time.Duration;
 
 /**
- * Cliente HTTP mock para llamadas a la API externa de pedidos e items.
+ * Cliente HTTP mock para llamadas a la API externa de pedidos.
  */
 @Component
 @Slf4j
@@ -35,11 +35,26 @@ public class MockPedidosApiClient {
         }
 
         /**
-         * Obtiene los pedidos asociados a un userId desde la API externa de MockAPI.
+         * Obtiene todos los pedidos desde la API externa de /pedidos.
+         * Aplica un patrón de Circuit Breaker y Retry para manejar fallas en la
+         * comunicación.
+         * @return strean de datos reactivo
+         */
+        @Retry(name = "pedidosApi")
+        @CircuitBreaker(name = "pedidosApi", fallbackMethod = "getAllPedidosFallback")
+        public Flux<OrderDto> getAllOrders() {
+                log.info("Llamando a MockAPI de pedidos");
+                return pedidosWebClient.get()
+                                .retrieve()
+                                .bodyToFlux(OrderDto.class);
+        }
+
+        /**
+         * Obtiene los pedidos asociados a un userId desde la API externa de /pedidos.
          * Aplica un patrón de Circuit Breaker y Retry para manejar fallas en la
          * comunicación.
          * @param userId
-         * @return
+         * @return strean de datos reactivo
          */
         @Retry(name = "pedidosApi")
         @CircuitBreaker(name = "pedidosApi", fallbackMethod = "pedidosFallback")
@@ -49,6 +64,16 @@ public class MockPedidosApiClient {
                                 .retrieve()
                                 .bodyToFlux(OrderDto.class)
                                 .filter(order -> userId.equals(order.getUserId()));
+        }
+
+        /**
+         * Método de fallback para manejar errores en la llamada a la API externa de pedidos.
+         * @param timeoutMs
+         * @return
+         */
+        public Flux<OrderDto> getAllPedidosFallback(Throwable ex) {
+                log.error("Error al llamar a MockAPI de pedidos");
+                return Flux.empty();
         }
 
         /**

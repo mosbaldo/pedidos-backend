@@ -104,28 +104,16 @@ paths:
 
   /orders/search:
     get:
-      summary: Búsqueda predictiva y flexible de pedidos
+      summary: Búsqueda flexible de pedidos
       description: Realiza una búsqueda type-ahead flexible sobre pedidos filtrando por referencia, estatus o nombre de tienda. Recupera los productos resolviendo sus nombres amigables.
       operationId: searchOrders
       tags:
         - Orders
       parameters:
-        - name: orderRef
+        - name: query
           in: query
-          required: false
-          description: Referencia del pedido para búsqueda flexible.
-          schema:
-            type: string
-        - name: orderStatus
-          in: query
-          required: false
-          description: Estatus del pedido para búsqueda flexible.
-          schema:
-            type: string
-        - name: storeName
-          in: query
-          required: false
-          description: Nombre de la tienda para búsqueda flexible.
+          required: true
+          description: Cadena de caracteres a buscar
           schema:
             type: string
       responses:
@@ -136,7 +124,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SearchOrderResult"
+                  $ref: "#/components/schemas/OrderSearchResponse"
 
 components:
   schemas:
@@ -219,7 +207,7 @@ components:
           type: string
           description: Canal de venta (ej. physical, online).
 
-    SearchOrderResult:
+    OrderSearchResponse:
       type: object
       required:
         - orderRef
@@ -233,12 +221,9 @@ components:
         storeName:
           type: string
           description: Nombre de la tienda de origen.
-        channel:
+        canal:
           type: string
           description: Canal de venta utilizado.
-        deliveryDate:
-          type: string
-          description: Fecha estimada de entrega de la orden.
         items:
           type: array
           items:
