@@ -3,6 +3,9 @@ package com.liverpool.pedidos.domain.util;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
+/**
+ * Clase de utilidad encargada de la sanitización, homogeneización y normalización del texto.
+ */
 
 public class StringNormalizer {
     private StringNormalizer() {}
@@ -10,8 +13,7 @@ public class StringNormalizer {
     private static final Pattern DIACRITICS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 
     /**
-     * Normaliza un texto eliminando acentos, comas, mayúsculas y espacios
-     * duplicados.
+     * Normaliza un texto eliminando acentos, comas, mayúsculas y espacios duplicados.
      */
     public static String normalize(String input) {
         if (input == null) {

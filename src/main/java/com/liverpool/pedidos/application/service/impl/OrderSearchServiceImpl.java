@@ -90,6 +90,11 @@ public class OrderSearchServiceImpl implements OrderSearchService {
         }
     }
 
+
+    /**
+     * Asocia la información detallada de los productos proveniente del catálogo de
+     * items con las referencias de productos en el pedido
+     */
     private void enrichOrderItems(Order order, Map<String, Item> itemsMap) {
         if (order.getItems() != null) {
             List<Item> enriched = order.getItems().stream()
@@ -113,6 +118,10 @@ public class OrderSearchServiceImpl implements OrderSearchService {
         }
     }
 
+    /**
+     * Aplica la validación de filtros predictivos mediante cortocircuito lógico sobre
+     * los campos del pedido y los nombres de los productos.
+     */
     private boolean matchesPredictiveFilter(Order order, String query) {
         if (order.getOrderRef() != null && StringNormalizer.normalize(order.getOrderRef()).contains(query)) {
             return true;

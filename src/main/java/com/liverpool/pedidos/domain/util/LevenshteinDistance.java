@@ -1,5 +1,9 @@
 package com.liverpool.pedidos.domain.util;
 
+/**
+ * Clase utilitaria que implementa el algoritmo matemático de la Distancia de Levenshtein
+ * mediante el paradigma de programación dinámica.
+ */
 public class LevenshteinDistance {
     private LevenshteinDistance() {}
 
