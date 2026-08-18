@@ -1,8 +1,11 @@
 package com.liverpool.pedidos.infrastructure.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import java.util.List;
 
+import org.mapstruct.Mapper;
+
+import com.liverpool.infrastructure.rest.dto.OrderSearchResponseDto;
+import com.liverpool.pedidos.domain.model.Item;
 import com.liverpool.pedidos.domain.model.Order;
 import com.liverpool.pedidos.infrastructure.rest.client.dto.OrderDto;
 
@@ -19,6 +22,25 @@ public interface OrderMapper {
      * @param orderDto DTO de la capa de API.
      * @return Modelo de dominio correspondiente.
      */
-    @Mapping(target = "items", ignore = true)
     Order toDomain(OrderDto orderDto);
+
+    /**
+     * Mapea el modelo de dominio a un DTO de la capa de API.
+     *
+     * @param order Modelo de dominio.
+     * @return DTO de respuesta la capa de API correspondiente.
+     */
+    List<OrderSearchResponseDto> toListApiDto(List<Order> orders);
+
+    /**
+     * Método auxiliar para convertir cada String del DTO en un objeto Item de dominio con su ID.
+     */
+    default Item mapStringToItem(String itemId) {
+        if (itemId == null) {
+            return null;
+        }
+        return Item.builder()
+                .itemId(itemId)
+                .build();
+    }
 }

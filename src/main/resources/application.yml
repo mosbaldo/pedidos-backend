@@ -26,9 +26,22 @@ resilience4j:
         wait-duration-in-open-state: 15s
         permitted-number-of-calls-in-half-open-state: 3
         automatic-transition-from-open-to-half-open-enabled: true
+      itemsApi:
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 15s
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
   retry:
     instances:
       pedidosApi:
+        max-attempts: 3
+        wait-duration: 2s
+        ignore-exceptions:
+          - org.springframework.web.reactive.function.client.WebClientResponseException.NotFound
+      itemsApi:
         max-attempts: 3
         wait-duration: 2s
         ignore-exceptions:

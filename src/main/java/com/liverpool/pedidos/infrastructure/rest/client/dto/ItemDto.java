@@ -21,20 +21,20 @@ import lombok.Setter;
 public class ItemDto {
 
     /**
-     * Identificador único del item.
+     * Identificador numérico del producto.
      */
     @EqualsAndHashCode.Include
     @JsonProperty("id")
     private long id;
 
     /**
-     * Identificador del item.
+     * Identificador del producto.
      */
     @JsonProperty("itemId")
-    private long itemId;
+    private String itemId;
 
     /**
-     * Identificador del SKU del item.
+     * Identificador del SKU del producto.
      */
     @JsonProperty("skuId")
     private String skuId;
@@ -46,13 +46,13 @@ public class ItemDto {
     private String displayName;
 
     /**
-     * Cantidad del pedido.
+     * Cantidad del producto.
      */
     @JsonProperty("quantity")
     private int quantity;
 
     /**
-     * Descripción del producto.
+     * Estatus de la entrega del producto.
      */
     @JsonProperty("deliveryStatus")
     private String deliveryStatus;

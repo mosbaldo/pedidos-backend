@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO para la respuesta del endpoint externo de items.
+ * Modelo de dominio puro para representar un producto.
  */
 @Getter
 @Setter
@@ -19,18 +19,19 @@ import lombok.Setter;
 public class Item {
 
     /**
-     * Identificador único del item.
+     * Identificador único del producto.
      */
     @EqualsAndHashCode.Include
     private long id;
 
     /**
-     * Identificador del item.
+     * Identificador del producto.
      */
-    private long itemId;
+    @EqualsAndHashCode.Include
+    private String itemId;
 
     /**
-     * Identificador del SKU del item.
+     * Identificador del SKU del producto.
      */
     private String skuId;
 
@@ -40,12 +41,12 @@ public class Item {
     private String displayName;
 
     /**
-     * Cantidad del pedido.
+     * Cantidad del producto en el pedido.
      */
     private int quantity;
 
     /**
-     * Descripción del producto.
+     * Estatus de la entrega del producto.
      */
     private String deliveryStatus;
 
