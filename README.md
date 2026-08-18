@@ -1,6 +1,6 @@
 # Módulo de Gestión de Pedidos - Puerto de Liverpool (pedidos-backend)
 
-Este repositorio contiene la implementación del microservicio **pedidos-backend**, desarrollado como parte de la evaluación técnica para el equipo de desarrollo de **El Puerto de Liverpool**. El sistema permite gestionar los datos de clientes, sus direcciones de envío y la sincronización con sus correspondientes pedidos y productos consumidos desde servicios externos, utilizando una arquitectura moderna, tolerante a fallos, resiliente y altamente escalable.
+Este repositorio contiene la implementación del servicio **pedidos-backend**, desarrollado como parte de la evaluación técnica para el equipo de desarrollo de **El Puerto de Liverpool**. El sistema permite gestionar los datos de clientes, sus direcciones de envío y la sincronización con sus correspondientes pedidos y productos consumidos desde servicios externos, utilizando una arquitectura moderna, tolerante a fallos, resiliente y altamente escalable.
 
 ---
 
@@ -62,7 +62,7 @@ Una vez compilado el proyecto y con Docker activo, arranca el servidor embebido 
 ```bash
 mvn spring-boot:run
 ```
-El microservicio se iniciará por defecto en el puerto **8080** y con el contexto de versión base **/api/v1** (ej. `http://localhost:8080/api/v1`).
+El servicio se iniciará por defecto en el puerto **8080** y con el contexto de versión base **/api/v1** (ej. `http://localhost:8080/api/v1`).
 
 ---
 
@@ -168,7 +168,7 @@ Orquesta la cascada de filtros de coincidencia sobre el pedido ya enriquecido co
 
 ---
 
-### 🗺️ Diagrama de Flujo: Búsqueda Predictiva de Pedidos
+### 🗺️ Diagrama de Flujo: Búsqueda de Pedidos
 
 A continuación se detalla el flujo de datos y ejecución síncrona/reactiva que se lleva a cabo desde que el cliente realiza la petición de búsqueda en el controlador hasta la entrega del resultado procesado:
 
@@ -224,7 +224,7 @@ Una vez que la aplicación esté corriendo localmente, puedes acceder a la conso
 
 ## 🔌 Referencia de Endpoints y Pruebas (cURL)
 
-A continuación se presentan los comandos cURL recomendados para probar las operaciones de Clientes y la Búsqueda Predictiva de Pedidos de tu microservicio local:
+A continuación se presentan los comandos cURL recomendados para probar las operaciones de Clientes y la Búsqueda de Pedidos de tu servicio local:
 
 ### 1. Registrar un Cliente Nuevo (POST)
 Crea un cliente asociándole su dirección de envío. El sistema consumirá el MockAPI externo de `/pedidos` de forma no bloqueante, detectará si el `userId` tiene pedidos activos, los mapeará y persistirá el registro en MongoDB:
@@ -272,7 +272,7 @@ curl -X DELETE http://localhost:8080/api/v1/customers/75c97531-abf5-4524-8107-90
 * **Código HTTP de Éxito:** `204 No Content`
 
 ### 5. Búsqueda Type-ahead de Pedidos con Tolerancia Ortográfica (GET)
-Realiza búsquedas predictivas (*type-ahead*) sobre los pedidos filtrando campos de la orden o nombres comerciales de artículos del catálogo:
+Realiza búsquedas *type-ahead* sobre los pedidos filtrando campos de la orden o nombres comerciales de artículos del catálogo:
 ```bash
 curl -X GET "http://localhost:8080/api/v1/orders/search?query=pants"
 ```
